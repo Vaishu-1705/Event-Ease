@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>EventEase — Clubs & Events</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0f1724;
+    --card:#0f1724;
+    --panel:#0b1220;
+    --muted:#9aa4b2;
+    --accent1:#ff5c8a;
+    --accent2:#6d5cff;
+    --glass: rgba(255,255,255,0.04);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family:"Poppins",system-ui,Arial;
+    background: linear-gradient(135deg, #071022 0%, #0f1724 40%, #071022 100%);
+    color:#e6eef8;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    min-height:100vh;
+  }
+
+  /* Top bar */
+  .topbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    padding:22px 28px;
+    background: linear-gradient(90deg,var(--accent1),var(--accent2));
+    box-shadow: 0 8px 30px rgba(13, 8, 32, 0.45);
+  }
+  .brand{
+    display:flex;
+    gap:12px;
+    align-items:center;
+  }
+  .logo {
+    width:46px;
+    height:46px;
+    border-radius:10px;
+    background:linear-gradient(135deg,#fff 0%, rgba(255,255,255,0.15) 100%);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--accent2);
+    font-weight:700;
+    font-size:18px;
+  }
+  .title{
+    font-size:20px;
+    font-weight:700;
+    letter-spacing:0.2px;
+  }
+  .subtitle{
+    font-size:12px;
+    color:rgba(255,255,255,0.92);
+    opacity:0.95;
+  }
+
+  /* Main layout */
+  .wrap{
+    max-width:1100px;
+    margin:28px auto;
+    padding:0 18px 60px;
+  }
+
+  /* Home grid */
+  .grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap:20px;
+  }
+
+  .card{
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border-radius:var(--radius);
+    padding:20px;
+    box-shadow: 0 6px 20px rgba(2,6,23,0.6);
+    transition: transform .28s cubic-bezier(.2,.9,.2,1), box-shadow .28s;
+    cursor: pointer;
+    text-decoration:none;
+    color:inherit;
+    border:1px solid rgba(255,255,255,0.03);
+  }
+  .card:hover{
+    transform: translateY(-8px);
+    box-shadow: 0 18px 40px rgba(13,8,32,0.7), 0 6px 30px rgba(109,92,255,0.08);
+  }
+  .card h3{
+    margin:0 0 8px;
+    font-size:20px;
+    font-weight:600;
+    color:#fff;
+  }
+  .card p{
+    margin:0;
+    color:var(--muted);
+    font-size:14px;
+  }
+
+  /* Details page style */
+  .panel{
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border-radius:16px;
+    padding:28px;
+    max-width:820px;
+    margin:30px auto;
+    box-shadow: 0 12px 40px rgba(2,6,23,0.6);
+    border: 1px solid rgba(255,255,255,0.03);
+  }
+  .club-title{
+    font-size:28px;
+    margin:0 0 6px;
+    color: #fff;
+  }
+  .meta{
+    color:var(--muted);
+    margin-bottom:18px;
+  }
+
+  .schedule-table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:12px;
+  }
+  .schedule-table th,
+  .schedule-table td{
+    padding:12px 14px;
+    border-bottom:1px solid rgba(255,255,255,0.03);
+    text-align:left;
+  }
+  .schedule-table th{
+    color:#fff;
+    background: linear-gradient(90deg,var(--accent1),var(--accent2));
+    font-weight:600;
+    border-radius:8px;
+  }
+  .label{
+    display:inline-block;
+    padding:8px 12px;
+    border-radius:999px;
+    background:rgba(255,255,255,0.04);
+    color:var(--muted);
+    font-size:13px;
+    margin-right:8px;
+  }
+
+  .btn{
+    display:inline-block;
+    margin-top:18px;
+    padding:10px 16px;
+    background: linear-gradient(90deg,var(--accent2), #4d3bff);
+    color:white;
+    border-radius:10px;
+    text-decoration:none;
+    font-weight:600;
+    border:0;
+    cursor:pointer;
+  }
+  .btn.secondary{
+    background:transparent;
+    border:1px solid rgba(255,255,255,0.06);
+    color:var(--muted);
+  }
+
+  /* small screens */
+  @media (max-width:640px){
+    .topbar{padding:16px}
+    .title{font-size:18px}
+    .card h3{font-size:18px}
+    .club-title{font-size:22px}
+    .wrap{padding:0 12px}
+  }
+</style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="brand">
+      <div class="logo">EE</div>
+      <div>
+        <div class="title">EventEase</div>
+        <div class="subtitle">University Clubs & Events</div>
+      </div>
+    </div>
+
+    <div id="breadcrumb" style="color:rgba(255,255,255,0.95); font-weight:600">Home</div>
+  </div>
+
+  <main class="wrap" id="app">
+    <!-- HOME VIEW -->
+    <section id="view-home">
+      <h2 style="text-align:center; margin-bottom:18px;">Explore Clubs</h2>
+      <p style="text-align:center; color:var(--muted); margin-bottom:28px;">Click a club to view its upcoming event(s) — date, time & occasion.</p>
+
+      <div class="grid" id="club-grid">
+        <!-- Cards inserted via JS -->
+      </div>
+    </section>
+
+    <!-- DETAILS VIEW (single panel used for any club) -->
+    <section id="view-details" style="display:none">
+      <div class="panel" id="details-panel">
+        <!-- Content inserted dynamically -->
+      </div>
+    </section>
+  </main>
+
+<script>
+/*
+  Single-file SPA routing (hash-based). 
+  - Click club -> location.hash changes (e.g., #music)
+  - Router shows the details view and updates breadcrumb.
+  - Back/forward works.
+*/
+
+const clubs = {
+  music: {
+    title: "Music Club",
+    description: "Vocal & instrumental performances, band rehearsals and concerts.",
+    events: [
+      { name: "Opening Concert — Mahotsav", date: "2025-02-01", time: "18:00 - 20:00", occasion: "Mahotsav Cultural Evening" },
+      { name: "Acoustic Night", date: "2025-02-02", time: "17:30 - 19:00", occasion: "Open Mic" }
+    ]
+  },
+  dance: {
+    title: "Dance Club",
+    description: "Classical and contemporary dance practice sessions & choreographies.",
+    events: [
+      { name: "Dance Extravaganza", date: "2025-02-02", time: "16:00 - 18:00", occasion: "Mahotsav Dance Night" },
+      { name: "Fusion Workshop", date: "2025-02-04", time: "15:00 - 17:00", occasion: "Dance Workshop" }
+    ]
+  },
+  theater: {
+    title: "Theater Arts Club",
+    description: "Plays, skits, direction, scriptwriting and stagecraft.",
+    events: [
+      { name: "Drama Night", date: "2025-02-01", time: "15:00 - 17:00", occasion: "Mahotsav Theater Festival" }
+    ]
+  },
+  technical: {
+    title: "Technical Design Club",
+    description: "Hackathons, design challenges, and tech exhibitions.",
+    events: [
+      { name: "Innovation Showcase", date: "2025-02-03", time: "10:00 - 13:00", occasion: "Mahotsav Tech Day" },
+      { name: "Mini Hackathon", date: "2025-02-03", time: "14:00 - 17:00", occasion: "Student Projects" }
+    ]
+  },
+  fashion: {
+    title: "Fashion Club",
+    description: "Fashion design, runway rehearsals and styling sessions.",
+    events: [
+      { name: "Fashion Show", date: "2025-02-03", time: "20:00 - 21:30", occasion: "Mahotsav Fashion Night" }
+    ]
+  }
+};
+
+// Build homepage cards
+const grid = document.getElementById('club-grid');
+Object.keys(clubs).forEach(key => {
+  const card = document.createElement('a');
+  card.className = 'card';
+  card.href = `#${key}`;  // hash navigation -> acts like redirect
+  card.innerHTML = `<h3>${clubs[key].title}</h3><p>${clubs[key].description}</p>`;
+  grid.appendChild(card);
+});
+
+// Router: show either home or details based on hash
+function renderRoute() {
+  const hash = location.hash.replace(/^#/, '');
+  const homeView = document.getElementById('view-home');
+  const detailsView = document.getElementById('view-details');
+  const breadcrumb = document.getElementById('breadcrumb');
+
+  if (!hash) {
+    // show home
+    homeView.style.display = '';
+    detailsView.style.display = 'none';
+    breadcrumb.textContent = 'Home';
+    history.replaceState(null, '', location.pathname + location.search);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    return;
+  }
+
+  if (!clubs[hash]) {
+    // unknown -> go home
+    location.hash = '';
+    return;
+  }
+
+  // show details
+  homeView.style.display = 'none';
+  detailsView.style.display = '';
+  breadcrumb.textContent = `Home / ${clubs[hash].title}`;
+
+  // Build details content
+  const panel = document.getElementById('details-panel');
+  const club = clubs[hash];
+
+  let html = `
+    <h1 class="club-title">${club.title}</h1>
+    <div class="meta">${club.description}</div>
+    <div style="margin-top:18px; text-align:left;">
+      <span class="label">Club</span>
+      <span class="label">Upcoming Events: ${club.events.length}</span>
+    </div>
+
+    <table class="schedule-table" aria-label="${club.title} schedule">
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Occasion</th>
+        </tr>
+      </thead>
+      <tbody>
+  `;
+
+  club.events.forEach(ev => {
+    html += `<tr>
+      <td>${ev.name}</td>
+      <td>${formatDate(ev.date)}</td>
+      <td>${ev.time}</td>
+      <td>${ev.occasion}</td>
+    </tr>`;
+  });
+
+  html += `</tbody></table>
+    <a href="#" class="btn" id="backBtn">← Back to Clubs</a>
+  `;
+
+  panel.innerHTML = html;
+
+  // ensure top scroll (if page long)
+  window.scrollTo({ top: 0, behavior: 'auto' });
+}
+
+// small helper date formatter: "2025-02-01" -> "1 Feb 2025"
+function formatDate(s) {
+  try {
+    const d = new Date(s + 'T00:00:00');
+    const opts = { day: 'numeric', month: 'short', year: 'numeric' };
+    return d.toLocaleDateString(undefined, opts);
+  } catch (e) {
+    return s;
+  }
+}
+
+// Back button: listen delegate
+document.addEventListener('click', e => {
+  if (e.target && e.target.id === 'backBtn') {
+    e.preventDefault();
+    location.hash = ''; // go home
+  }
+});
+
+// Handle initial load
+window.addEventListener('load', () => {
+  renderRoute();
+});
+
+// Handle hash changes (so links and browser back/forward work)
+window.addEventListener('hashchange', renderRoute);
+</script>
+</body>
+</html>
